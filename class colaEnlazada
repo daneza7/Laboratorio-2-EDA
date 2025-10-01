@@ -1,0 +1,37 @@
+public class ColaEnlazada<T> {
+    private Nodo<T> inicio;
+
+    public boolean add(T valor) {
+        Nodo<T> nuevo = new Nodo<>(valor);
+        if (inicio == null) {
+            inicio = nuevo;
+            return true;
+        }
+        Nodo<T> actual = inicio;
+        while (actual.siguiente != null) {
+            actual = actual.siguiente; 
+        }
+        actual.siguiente = nuevo; 
+        return true;
+    }
+
+    public T poll() {
+        if (isEmpty()) {
+            return null;
+        }
+        T v = inicio.valor;
+        inicio = inicio.siguiente;
+        return v;
+    }
+
+    public T peek() {
+        if (isEmpty()) {
+            return null;
+        }
+        return inicio.valor;
+    }
+
+    public boolean isEmpty() {
+        return inicio == null;
+    }
+}
