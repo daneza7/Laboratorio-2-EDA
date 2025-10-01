@@ -1,0 +1,47 @@
+import java.util.Random;
+
+class Alerta {
+    private String nombre;
+    private double probfallo;
+    private int limiteAlertas;
+    
+    public Alerta(String nombre, double probfallo) {
+        if(probfallo < 0 || probfallo > 100){
+            System.out.println("probfallo debe estar entre 0 y 1");
+        }
+        this.nombre = nombre;
+        this.probfallo = probfallo;
+        this.limiteAlertas = 0;
+    }
+   
+    public Alerta(String nombre, double probfallo, int limiteAlertas) {
+        if(probfallo < 0 || probfallo > 1){
+            System.out.println("probfallo debe estar entre 0 y 1");
+        }
+        if(limiteAlertas <= 0){
+            System.out.println("limite debe ser mayor a 0");
+        }
+        this.nombre = nombre;
+        this.probfallo = probfallo;
+        this.limiteAlertas = limiteAlertas;
+    }
+   
+    public boolean procesarLlamada(PilaEnlazada<Alerta> pila, int limite){
+        if(limite <= 0){
+            System.out.println("limite recursion debe ser > 0");
+        }
+       
+        if(pila.size() >= limite){
+            return true;
+        }
+      
+        if(Math.random() < probfallo){
+            return false;
+        }
+       
+        String nombreHija = "Alerta-secundaria-Nivel-" + pila.size();
+        Alerta siguiente = new Alerta(nombreHija, probfallo);
+        pila.push(siguiente);
+        return siguiente.procesarLlamada(pila,limite);
+    }
+}
