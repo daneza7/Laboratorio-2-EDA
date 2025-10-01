@@ -1,0 +1,53 @@
+class Nodo<T>{ 
+    T valor; 
+    Nodo<T> siguiente; 
+
+    public Nodo(T valor){
+        this.valor = valor;
+        this.siguiente = null;
+    }
+}
+public class PilaEnlazada<T> {
+    private Nodo<T> tope; 
+
+    public PilaEnlazada(){ 
+        this.tope = null; 
+    }
+
+    public void push(T valor){
+        Nodo<T> nuevo = new Nodo<>(valor); 
+        nuevo.siguiente = tope; 
+        tope = nuevo; 
+    }
+    public T pop(){
+        if(isEmpty()){
+            return null;
+        }
+        T valor = tope.valor; 
+        tope = tope.siguiente;
+        return valor;
+    }
+    public T peek(){
+        if(isEmpty()){
+            return null;
+        }
+        return tope.valor;
+    }
+    public boolean isEmpty(){
+        return tope == null;
+    }
+
+    @Override 
+    public String toString() {
+        String resultado = "";
+        Nodo<T> actual = tope;
+        while(actual!=null){
+            resultado += actual.valor;
+            if(actual.siguiente!=null){
+                resultado += "->";
+            }
+            actual = actual.siguiente;
+        }
+        return resultado;
+    }
+}
